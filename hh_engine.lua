@@ -539,6 +539,12 @@ local function setup_job()
             settings.save('happyhealer')
         end
 
+        -- No more named saves (1.1): whatever is on screen is what runs, saved as you go.
+        if addon_settings.active_profile ~= nil then
+            addon_settings.active_profile = nil
+            settings.save('happyhealer')
+        end
+
         common.printf('Loaded settings for %s', job_def.job_name)
     end
 end

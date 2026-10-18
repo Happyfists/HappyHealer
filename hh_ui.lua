@@ -1166,7 +1166,7 @@ ui.render = function (sk)
     tabs[#tabs + 1] = { 'abilities', 'Job Abilities' };
     tabs[#tabs + 1] = { 'options', 'Other Options' };
     tabs[#tabs + 1] = { 'program', 'Program Options' };
-    tabs[#tabs + 1] = { 'save', 'Save' };
+    -- (The Save page was taken out in 1.1: one set of settings, saved as you go.)
     local valid = false;
     for _, pg in ipairs(tabs) do if pg[1] == page then valid = true; end end
     if not valid then page = 'main'; end
