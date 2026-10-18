@@ -17,7 +17,7 @@
 
 addon.name    = 'happyhealer';
 addon.author  = 'Happyfists';
-addon.version = '1.1';
+addon.version = '1.2';
 addon.desc    = 'Easy Cure Please style healer, built on Sidekick by Seekey.';
 addon.link    = 'https://github.com/Happyfists/Omni';
 

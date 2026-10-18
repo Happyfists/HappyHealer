@@ -273,7 +273,7 @@ local function render_healing(sk, dl, wx, wy, W, pad, top, lineH)
 
     -- Area of Effect Healing card.
     local ay = hy + hh + pad;
-    local ah = 38 + math.max(#CURAGAS * rowH, 4 * 52) + 8;
+    local ah = 38 + math.max(#CURAGAS * rowH, 5 * 52) + 8;
     card(dl, wx, wy, pad, ay, cw, ah, 'Area of Effect Healing');
     for i, n in ipairs(CURAGAS) do
         spell_row(sk, s, spells, n, x0, ay + 36 + (i - 1) * rowH, amountX, amountW, lineH);
@@ -321,6 +321,17 @@ local function render_healing(sk, dl, wx, wy, W, pad, top, lineH)
     end
     save_when_done(sk, false);
     imgui.PopItemWidth();
+
+    -- Curaga first: Curaga goes before single cures whenever enough members are hurt.
+    imgui.SetCursorPos({ rightX, ay + 206 });
+    local cf = { s.hh_curaga_first ~= false };
+    if imgui.Checkbox('Curaga first (before single cures)##hh_cfirst', cf) then
+        s.hh_curaga_first = cf[1];
+        sk.save();
+    end
+    if imgui.IsItemHovered() then
+        imgui.SetTooltip('On: Curaga as soon as enough members are below the Curaga Threshold,\neven if the rest of the party is full.\nOff: only when the whole party is low on average too.\nCures for someone below the critical % still go first.');
+    end
 
     return ay + ah;
 end

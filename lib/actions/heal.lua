@@ -794,7 +794,11 @@ function heal.execute_aoe(settings, job_def)
     -- The bar for STARTING an AOE heal: 2+ members of one party below threshold and
     -- that party's average below it too. The buff-already-up branch below runs on a
     -- looser gate (the charge is already spent).
-    local ready = needy_groups(groups, math.max(1, tonumber(settings.hh_curaga_min) or 2), true, threshold)
+    -- Happy Healer: with "Curaga first" ticked (the default), enough hurt members is all it
+    -- takes - the party's average HP no longer has to be low too, so Curaga goes before
+    -- single cures whenever it can cover them.
+    local curaga_first = settings.hh_curaga_first ~= false
+    local ready = needy_groups(groups, math.max(1, tonumber(settings.hh_curaga_min) or 2), not curaga_first, threshold)
 
     -- An aoe_precast entry (SCH Accession) is a JA that heals nothing on its own: it
     -- makes the NEXT single-target cure land on everyone in range. Split it out of the
